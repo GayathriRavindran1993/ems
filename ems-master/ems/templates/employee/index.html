@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load poll_extras %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-8">
+        <a href="exportdata/">Download excel</a>
+        <!-- <p>
+            <div class="float-left"><h3>List of {{title}}</h3></div>
+            {% if request.role == 'Admin' %}
+            <a class="btn btn-success float-right" href="{%  url 'employee_add' %}">Add employee</a>
+            {% endif %}
+        </p> -->
+        <div class="table-responsive-sm">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>EmployeeName</th>
+                        <th class="text-center">Task</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Time</th>
+                         <th class="text-center">Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks%}
+                    <tr>
+                        <td>{{task.employee_name}}</td>
+                        <td>{{task.task_value}}</td>
+                         <td>{{task.date}}</td>
+                        <td>{{task.time}}</td>
+                        <td>{{task.comment}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </form>
+            </div>
+                <form method="POST" action="add-task/">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td><label for="empname">employee name</label></td>
+                            <td><input type="text" name="name" id="name" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="empname">task</label></td>
+                            <td><input type="text" name="task" id="task" required></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><label for="time">time</label></td>
+                            <td><input type="time" name="time" id="time" required></td>
+                        </tr>
+                        <p style="color: red;">{{error}}</p>
+                    </table>
+                    <button type="submit">Add Task</button>
+      
+    </div>
+</div>
+{% endblock content %}
